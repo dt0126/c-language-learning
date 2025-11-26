@@ -25,19 +25,75 @@ int main()
 		}
 		
 	}
-	printf("开始绘制直方图：");
-	system("cls");
+
+	
+
+	int MaxQuency = 0;
+	for (int i = 0; i < MAX_SIZE; i++)
+	{
+		if (MaxQuency >= WordQuency[i])MaxQuency = MaxQuency;
+		else MaxQuency = WordQuency[i];
+	}
 
 	for (int i = 0; i < MAX_SIZE; i++)
 	{
-		printf("长度为的%2d单词出现次数的直方图：", i+1);
-		while (WordQuency[i] > 0)
-		{
-			printf("※");
-			WordQuency[i]--;
-		}
-		printf("\n");
+		WordQuency[i] = WordQuency[i] - MaxQuency;
+	}
+	int temp_MaxQuency = MaxQuency;
+	int temp_y = MaxQuency;
+
+
+	
+	system("cls");
+	printf("开始绘制直方图：\n");
+	
+	for (int i = 0; i < MAX_SIZE+2; i++)
+	{
+		int y = MaxQuency;
+		if (i == 0)printf(" |");
+		else if (i == MAX_SIZE + 1)printf("|\n");
+		else printf("-----");
+		
 	}
 	
+	while (temp_MaxQuency > 0)
+	{
+		for (int i = 0; i < MAX_SIZE + 2; i++)
+		{
+			
+			if (i == 0)printf("%d|",temp_y);
+			else if (i == MAX_SIZE + 1)
+			{
+				printf("                        |\n");
+				temp_y--;
+			}
+			else if (i < MAX_SIZE)
+			{
+				if (WordQuency[i] >= 0&&WordQuency[i]<MaxQuency)
+				{
+					printf(" ※  ");
+				}
+				else if (WordQuency[i] < 0)printf("    ");
+				WordQuency[i]++;
+			}
+			
+		}
+		temp_MaxQuency--;
+	}
+	
+	for (int i = 0; i < MAX_SIZE + 2; i++)
+	{
+		int y = MaxQuency;
+		if (i == 0)printf(" |");
+		else if (i == MAX_SIZE + 1)printf("|\n");
+		else printf("-----");
+
+	}
+	for (int i = 0; i < MAX_SIZE; i++)
+	{
+		printf("   %d", i + 1);
+	}
+
+
 	return 0;
 }
